@@ -22,27 +22,36 @@
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
+             <nav class="flex items-center justify-end gap-4">
                     @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
+                        @if(auth()->user()->role?->role_kode === 'customer')
+                            <a href="{{ url('/') }}" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
+                                Beranda
+                            </a>
+                        @else
+                            <a href="{{ url('/admin') }}" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
+                                Panel Admin
+                            </a>
+                        @endif
+
+                        <span class="text-sm dark:text-[#A1A09A] text-[#706f6c] border-l border-[#e3e3e0] dark:border-[#3E3E3A] pl-4 ml-2 flex items-center h-full">
+                            Halo, {{ auth()->user()->name }}
+                        </span>
+
+                        <form method="POST" action="{{ route('logout') }}" class="inline m-0 p-0">
+                            @csrf
+                            <button type="submit" class="inline-block px-5 py-1.5 text-[#F53003] dark:text-[#FF4433] font-medium border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal transition-all">
+                                Keluar
+                            </button>
+                        </form>
                     @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
+                        <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
+                            Masuk
                         </a>
 
                         @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
+                            <a href="{{ route('register') }}" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Daftar
                             </a>
                         @endif
                     @endauth
