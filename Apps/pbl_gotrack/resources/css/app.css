@@ -1,3 +1,72 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+[x-cloak] {
+    display: none !important;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'League Spartan', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+
+    --color-brand-black: #06080b;
+    --color-brand-ink: #0d1117;
+    --color-brand-navy: #0a1823;
+    --color-brand-slate: #8da4b1;
+    --color-brand-steel: #78a4c6;
+    --color-brand-mist: #eef4f7;
+    --color-brand-white: #ffffff;
+    --color-brand-accent: #78a4c6;
+    --color-brand-button: #f1f5f9;
+
+    --radius-4xl: 40px;
+    --radius-5xl: 64px;
+}
+
+@utility bg-hero-gradient {
+    background:
+        radial-gradient(circle at 74% 30%, rgba(115, 145, 162, 0.32) 0%, rgba(115, 145, 162, 0.06) 28%, transparent 45%),
+        radial-gradient(circle at 84% 58%, rgba(46, 65, 78, 0.88) 0%, rgba(17, 24, 32, 0.94) 38%, rgba(6, 8, 11, 1) 78%);
+}
+
+@utility hero-shell {
+    background:
+        radial-gradient(circle at 82% 42%, rgba(23, 58, 79, 0.95) 0%, rgba(10, 29, 40, 0.82) 24%, rgba(3, 10, 14, 0.22) 48%, rgba(0, 0, 0, 0) 68%),
+        linear-gradient(90deg, #000000 0%, #000000 48%, #08161e 76%, #0d2735 100%);
+}
+
+@keyframes hero-jersey-drop {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -96px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@utility animate-hero-jersey-drop {
+    animation: hero-jersey-drop 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity;
+}
+
+@utility animate-hero-jersey-drop-delayed {
+    animation: hero-jersey-drop 980ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-hero-jersey-drop,
+    .animate-hero-jersey-drop-delayed {
+        animation: none;
+        will-change: auto;
+    }
+}
